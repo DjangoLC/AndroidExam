@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "709086133805",
+    "firebase_url": "https://androidexam-7ff73.firebaseio.com",
+    "project_id": "androidexam-7ff73",
+    "storage_bucket": "androidexam-7ff73.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709086133805:android:c7f0cc3196057435",
+        "android_client_info": {
+          "package_name": "com.example.eperez.androidexam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709086133805-ahtpott5hmckcatplf9fpl8iu14ne5cp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eperez.androidexam",
+            "certificate_hash": "2652d7d68036da2a5995e38945df08b16ae4c2d5"
+          }
+        },
+        {
+          "client_id": "709086133805-ov1288gaa4sla9c0gpk7lgk9l09jv3jf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZh3IxZ76ulmACXg7E5jTDLkpQG9DmSug"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "709086133805-ov1288gaa4sla9c0gpk7lgk9l09jv3jf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

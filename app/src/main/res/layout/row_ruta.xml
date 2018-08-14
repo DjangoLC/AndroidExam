@@ -3,14 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="140dp"
+        android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="left"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        android:background="@drawable/ic_directions_black_24dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,12 +24,11 @@
             android:layout_marginTop="10dp">
 
             <TextView
-                android:id="@+id/tv_lbl_tipo"
+                android:id="@+id/tv_lbl_distancia"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView"
-                tools:text="Tipo:" />
+                android:background="@drawable/ic_access_time_black_24dp" />
 
             <TextView
                 android:id="@+id/tv_tipo"
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Hora:" />
+                android:background="@drawable/ic_directions_car_black_24dp" />
 
             <TextView
                 android:id="@+id/tv_hora"

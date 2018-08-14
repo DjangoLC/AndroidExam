@@ -33,6 +33,13 @@
                 android:layout_height="wrap_content"
                 tools:context=".MapsActivity" />
 
+            <SeekBar
+                android:id="@+id/SeekBar"
+                style="@android:style/Widget.Material.SeekBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:max="10" />
+
             <Button
                 android:layout_width="wrap_content"
                 android:text="Go!"
@@ -56,5 +63,7 @@
              android:id="@+id/content_recycler"
              android:visibility="gone">
     </include>
+
+
 
 </LinearLayout>
