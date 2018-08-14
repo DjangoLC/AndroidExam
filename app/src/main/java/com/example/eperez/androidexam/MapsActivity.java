@@ -250,12 +250,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     currentnLong = location.getLongitude();
                 } catch (Exception e) {
                     e.getMessage();
-                    Log.i(TAG, "Something was wrong, sorry :/");
+                    Log.i(TAG, "Algo salio mal al colocar tu marcador");
                 }
 
                 marker = mMap.addMarker(new MarkerOptions()
-                        .title("You are here!")
-                        .snippet("Let's go to some place!")
+                        .title("Estas aqui!")
+                        .snippet("Vamos a un lugar divertido!")
                         .position(new LatLng(currentLat, currentnLong))
                         .icon(BitmapDescriptorFactory.fromResource(R.drawable.person_pin_circle_black_192x192)));
 
@@ -307,7 +307,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 break;
 
             default:
-                Toast.makeText(this, "Action unknown", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Accion desconocida unknown", Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -345,13 +345,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRoutingFailure(RouteException e) {
         progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(this, "Algo salio mal", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Algo salio mal al trazar la ruta", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onRoutingStart() {
 
-        Toast.makeText(this, "Trazabdo ruta espera un mometo porfavor", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Trazando ruta espera un mometo porfavor", Toast.LENGTH_SHORT).show();
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
     }
@@ -403,7 +403,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Task task = new Task(route.get(0).getPoints(), new Task.listener() {
             @Override
             public void onFinish(StringBuilder builder) {
-                Log.i("WWW",builder.toString());
+                Log.i(TAG,builder.toString());
                 sendFirebase(builder.toString());
             }
         });
@@ -528,7 +528,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public boolean checkPermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(this, "permission granted!", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "permission granted!", Toast.LENGTH_SHORT).show();
             return true;
         } else {
             // Show rationale and request permission.
@@ -555,6 +555,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             } else {
                 // Permission was denied.
+                Toast.makeText(this, "Debes aceptar los permisos solicitados", Toast.LENGTH_SHORT).show();
             }
         }
     }

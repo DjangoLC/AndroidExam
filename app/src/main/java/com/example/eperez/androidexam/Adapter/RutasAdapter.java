@@ -19,8 +19,9 @@ public class RutasAdapter extends RecyclerView.Adapter<RutasAdapter.VHClientList
 
     private List<Ruta> data;
     private Context context;
-    Ruta current_ruta=null;
+    private Ruta current_ruta=null;
     private listener listener;
+    private final String TAG = getClass().getSimpleName();
 
     public RutasAdapter(List<Ruta> data, Context context, listener listener){
         this.data = data;
@@ -58,7 +59,7 @@ public class RutasAdapter extends RecyclerView.Adapter<RutasAdapter.VHClientList
             holder.ruta_hora.setText(String.valueOf(current_ruta.getHora()));
 
         } else{
-            Log.i("asd","data is null here");
+            Log.i(TAG,"data is null here");
         }
         holder.bind(current_ruta,listener);
 

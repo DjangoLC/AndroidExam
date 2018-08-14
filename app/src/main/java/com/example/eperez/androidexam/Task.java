@@ -15,6 +15,7 @@ public class Task extends AsyncTask<Void,Void,Boolean> {
     private List<LatLng> latLng;
     private listener listener;
     private StringBuilder builder;
+    private final String TAG = getClass().getSimpleName();
 
 
     public Task(List<LatLng> latLng, listener listener){
@@ -35,7 +36,7 @@ public class Task extends AsyncTask<Void,Void,Boolean> {
             try {
                 object.put("latitude", l.latitude);
                 object.put("longitud",l.longitude);
-                Log.i("JSON",object.toString());
+                Log.i(TAG,object.toString());
                 builder.append(object.toString());
 
 
@@ -45,7 +46,7 @@ public class Task extends AsyncTask<Void,Void,Boolean> {
             }
 
         }
-        Log.i("JSON",object.toString());
+        Log.i(TAG,object.toString());
 
 
         return true;
@@ -54,7 +55,7 @@ public class Task extends AsyncTask<Void,Void,Boolean> {
     @Override
     protected void onPostExecute(Boolean aBoolean) {
         if (aBoolean){
-            Log.i("asd",builder.toString());
+            Log.i(TAG,builder.toString());
             listener.onFinish(builder);
         } else{
 
