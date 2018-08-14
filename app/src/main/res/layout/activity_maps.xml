@@ -45,6 +45,7 @@
                 android:text="Go!"
                 android:id="@+id/btn_go"
                 android:layout_gravity="right"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
                 android:layout_height="wrap_content" />
 
         </LinearLayout>

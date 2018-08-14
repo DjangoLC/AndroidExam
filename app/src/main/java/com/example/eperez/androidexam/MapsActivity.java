@@ -2,13 +2,10 @@ package com.example.eperez.androidexam;
 
 import android.Manifest;
 import android.animation.ValueAnimator;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Handler;
@@ -36,8 +33,6 @@ import com.directions.route.RouteException;
 import com.directions.route.Routing;
 import com.directions.route.RoutingListener;
 import com.example.eperez.androidexam.Adapter.RutasAdapter;
-import com.example.eperez.androidexam.Modelos.DrawPolilyne;
-import com.example.eperez.androidexam.Modelos.PicassoMarker;
 import com.example.eperez.androidexam.Modelos.Ruta;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -64,15 +59,10 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback,
@@ -382,16 +372,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Ruta ruta = new Ruta();
         for (int a = 0; a < route.size(); a++) {
 
-            //In case of more than 5 alternative routes
-            int colorIndex = a % COLORS.length;
-
-            PolylineOptions polyOptions = new PolylineOptions();
-            polyOptions.color(getResources().getColor(COLORS[colorIndex]));
-            polyOptions.width(10 + a * 3);
-            polyOptions.addAll(route.get(a).getPoints());
-            Polyline polyline = mMap.addPolyline(polyOptions);
-            polylines.add(polyline);
-
             blackPolylineOptions = new PolylineOptions();
             blackPolylineOptions.width(5);
             blackPolylineOptions.color(Color.BLACK);
@@ -400,18 +380,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             blackPolylineOptions.jointType(JointType.ROUND);
             blackPolyline = mMap.addPolyline(blackPolylineOptions);
 
-            /*mMap.addMarker(new MarkerOptions()
-                    .position(polyLineList.get(polyLineList.size() - 1)));*/
-            //Polyline polyline = mMap.addPolyline(polyOptions);
-
 
             Toast.makeText(getApplicationContext(), "Route " + (a + 1) + ": distance - " + route.get(a).getDistanceValue() +
                     ": duration - " + route.get(a).getDurationValue(), Toast.LENGTH_SHORT).show();
 
             LatLngBounds latLng = route.get(a).getLatLgnBounds();
 
-            ruta.setHora((double) route.get(a).getDurationValue());
-            ruta.setTipo(String.valueOf(route.get(a).getDistanceValue()));
+            ruta.setHora(route.get(a).getDurationText());
+            ruta.setDistance(String.valueOf(route.get(a).getEndAddressText()));
             ruta.setLat(latLng.getCenter().latitude);
             ruta.setLgn(latLng.getCenter().longitude);
 
@@ -420,29 +396,21 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         buildRecycler();
 
-        //Animator
-        JSONObject object = new JSONObject();
-        StringBuilder builder = new StringBuilder();
-            for (LatLng l : polylines.get(0).getPoints()){
-                    try {
-                        object.put("latitude", l.latitude);
-                        object.put("longitud",l.longitude);
-                        Log.i("JSON",object.toString());
-                        builder.append(object.toString());
-                
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        //Animator  polylines.get(0).getPoints()
 
-            }
-        strJson = object.toString();
-        Log.i("JSON",object.toString());
 
         Toast.makeText(this, "Data convert in JSONFormat", Toast.LENGTH_SHORT).show();
-    
+        Task task = new Task(route.get(0).getPoints(), new Task.listener() {
+            @Override
+            public void onFinish(StringBuilder builder) {
+                Log.i("WWW",builder.toString());
+                sendFirebase(builder.toString());
+            }
+        });
+        task.execute();
             
-        sendFirebase(builder.toString());
-        if (polylines!=null) {
+
+        if (route.get(0).getPoints()!=null) {
             final ValueAnimator polylineAnimator = ValueAnimator.ofInt(0, 100);
             polylineAnimator.setDuration(2000);
             polylineAnimator.setInterpolator(new LinearInterpolator());
@@ -607,7 +575,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MapsActivity.this, "Algo salio mal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MapsActivity.this, "Algo salio mal al enviar datos", Toast.LENGTH_SHORT).show();
                     }
                 });
 

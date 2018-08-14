@@ -54,7 +54,7 @@ public class RutasAdapter extends RecyclerView.Adapter<RutasAdapter.VHClientList
             if (data.get(0) instanceof Ruta)
                 current_ruta  = (Ruta) data.get(position);
 
-            holder.ruta_tipo.setText(current_ruta.getTipo());
+            holder.ruta_distance.setText(current_ruta.getDistance());
             holder.ruta_hora.setText(String.valueOf(current_ruta.getHora()));
 
         } else{
@@ -73,14 +73,13 @@ public class RutasAdapter extends RecyclerView.Adapter<RutasAdapter.VHClientList
 
     public class VHClientList extends RecyclerView.ViewHolder{
 
-        private TextView ruta_hora,ruta_tipo;
-        private ImageView banner;
+        private TextView ruta_hora,ruta_distance;
 
         public VHClientList(View itemView) {
             super(itemView);
 
             ruta_hora     = (TextView)  itemView.findViewById(R.id.tv_hora);
-            ruta_tipo     = (TextView)  itemView.findViewById(R.id.tv_tipo);
+            ruta_distance     = (TextView)  itemView.findViewById(R.id.tv_distancia);
 
         }
 

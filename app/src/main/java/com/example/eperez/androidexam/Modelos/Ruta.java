@@ -2,8 +2,8 @@ package com.example.eperez.androidexam.Modelos;
 
 public class Ruta {
 
-    private double hora;
-    private String tipo;
+    private String hora;
+    private String distance;
     private double lat;
     private double lgn;
 
@@ -12,27 +12,27 @@ public class Ruta {
 
     }
 
-    public Ruta(double hora, String tipo, double lat, double lgn) {
+    public Ruta(String hora, String distance, double lat, double lgn) {
         this.hora = hora;
-        this.tipo = tipo;
+        this.distance = distance;
         this.lat = lat;
         this.lgn = lgn;
     }
 
-    public double getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public void setHora(double hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getDistance() {
+        return distance;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 
     public double getLat() {
