@@ -57,8 +57,6 @@ public class Task extends AsyncTask<Void,Void,Boolean> {
         if (aBoolean){
             Log.i(TAG,builder.toString());
             listener.onFinish(builder);
-        } else{
-
         }
     }
 }
