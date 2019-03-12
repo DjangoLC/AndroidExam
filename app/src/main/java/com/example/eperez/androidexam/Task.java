@@ -41,7 +41,7 @@ public class Task extends AsyncTask<Void,Void,Boolean> {
 
 
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.e(TAG, "doInBackground: "+ e.getMessage());
                 return false;
             }
 
