@@ -72,23 +72,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                                    RoutingListener {
 
     private GoogleMap mMap;
-    private PlaceAutocompleteFragment placeAutoCompleteFrom, placeAutoCompleteTo;
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private Button btn_go;
 
     private LinearLayout l_map;
     private LinearLayout l_recycler;
 
-    private GoogleApiClient googleApiClient;
-    private LocationManager locationManager;
     private Marker marker;
     private String TAG = getClass().getSimpleName();
     private double currentLat, currentnLong, goToLat, goToLong;
-    private String BASE_URL;
     private float currentZoom = 11f;
-    private SeekBar seekBar;
     private LatLng goTo,current;
     private List<Ruta> l_ruta;
     private ProgressBar progressBar;
@@ -102,10 +95,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Handler handler;
     private LatLng startPosition, endPosition;
     private int index, next;
-    private PolylineOptions  blackPolylineOptions;
     private Polyline blackPolyline;
     private int valueSeekbar;
-    private String strJson;
 
     private List<Polyline> polylines;
     private static final int[] COLORS = new int[]{R.color.primary_dark_material_light, R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark};
@@ -122,15 +113,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         polyLineList = new ArrayList<>();
 
-        googleApiClient = new GoogleApiClient.Builder(this)
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .build();
 
 
-
-        seekBar = (SeekBar) findViewById(R.id.SeekBar);
+        SeekBar seekBar = (SeekBar) findViewById(R.id.SeekBar);
         polylines = new ArrayList<>();
         progressBar = findViewById(R.id.progressBar);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -157,7 +147,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             startActivity(intent);
         }
 
-        btn_go = findViewById(R.id.btn_go);
+        Button btn_go = findViewById(R.id.btn_go);
         btn_go.setOnClickListener(this);
         l_map = findViewById(R.id.content_map);
         l_recycler = findViewById(R.id.content_recycler);
@@ -168,8 +158,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         //AutoComplete
-        placeAutoCompleteFrom = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocompleteFrom);
-        placeAutoCompleteTo = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocompleteTo);
+        PlaceAutocompleteFragment placeAutoCompleteFrom = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocompleteFrom);
+        PlaceAutocompleteFragment placeAutoCompleteTo = (PlaceAutocompleteFragment) getFragmentManager().findFragmentById(R.id.place_autocompleteTo);
         placeAutoCompleteFrom.setHint("Mi ubicación");
         placeAutoCompleteTo.setHint("Destino");
         placeAutoCompleteFrom.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -230,7 +220,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         } else {
             mMap.setMyLocationEnabled(true);
 
-            locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
+            LocationManager locationManager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
 
             mMap.setOnCameraChangeListener(new GoogleMap.OnCameraChangeListener() {
                 @Override
@@ -272,7 +262,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void buildRecycler() {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RutasAdapter(l_ruta, this, new RutasAdapter.listener() {
+        RecyclerView.Adapter mAdapter = new RutasAdapter(l_ruta, this, new RutasAdapter.listener() {
             @Override
             public void onClick(Ruta article) {
                 //Toast.makeText(MapsActivity.this, "I am the: "+article.getTipo(), Toast.LENGTH_SHORT).show();
@@ -373,7 +363,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Ruta ruta = new Ruta();
         for (int a = 0; a < route.size(); a++) {
 
-            blackPolylineOptions = new PolylineOptions();
+            PolylineOptions blackPolylineOptions = new PolylineOptions();
             blackPolylineOptions.width(5);
             blackPolylineOptions.color(Color.BLACK);
             blackPolylineOptions.startCap(new SquareCap());
