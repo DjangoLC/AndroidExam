@@ -345,7 +345,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onRoutingFailure(RouteException e) {
         progressBar.setVisibility(View.INVISIBLE);
-        Toast.makeText(this, "Algo salio mal al trazar la ruta", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Algo salio mal al trazar la ruta "+e.getMessage(), Toast.LENGTH_SHORT).show();
+        Log.e(TAG, "onRoutingFailure: "+e.getMessage() );
     }
 
     @Override
@@ -501,6 +502,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void drwRoute(LatLng dir) {
         Routing routing = new Routing.Builder()
+                .key(getString(R.string.google_maps_key))
                 .travelMode(AbstractRouting.TravelMode.DRIVING)
                 .withListener(this)
                 .alternativeRoutes(true)
